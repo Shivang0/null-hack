@@ -1,0 +1,138 @@
+import type { Issue } from "../types";
+
+let mockIssueData: Issue[] = [
+  {
+    id: "iss-1",
+    title: "Implement integration adapter",
+    description:
+      "Wire up the integration adapter to the agent execution engine. Support tool calling and streaming responses.",
+    status: "todo",
+    priority: "high",
+    assignee_id: "agt-developer",
+    assignee_name: "Developer Agent",
+    project_id: "proj-alpha",
+    goal_id: "goal-integration",
+    labels: ["feature", "enhancement"],
+    comments_count: 0,
+    created_by: "agt-orchestrator",
+    created_at: new Date(Date.now() - 432000000).toISOString(),
+    updated_at: new Date(Date.now() - 432000000).toISOString(),
+  },
+  {
+    id: "iss-2",
+    title: "Write integration tests",
+    description:
+      "Integration test suite covering adapter execution, session lifecycle, and budget enforcement.",
+    status: "backlog",
+    priority: "medium",
+    assignee_id: null,
+    assignee_name: null,
+    project_id: "proj-alpha",
+    goal_id: "goal-integration",
+    labels: ["enhancement"],
+    comments_count: 0,
+    created_by: "agt-orchestrator",
+    created_at: new Date(Date.now() - 345600000).toISOString(),
+    updated_at: new Date(Date.now() - 345600000).toISOString(),
+  },
+  {
+    id: "iss-3",
+    title: "Fix streaming connection drops",
+    description:
+      "Stream disconnects after ~30s under load. Investigate keepalive timeout configuration.",
+    status: "in_progress",
+    priority: "critical",
+    assignee_id: "agt-developer",
+    assignee_name: "Developer Agent",
+    project_id: "proj-alpha",
+    goal_id: "goal-q1-milestone",
+    labels: ["bug", "urgent"],
+    comments_count: 3,
+    created_by: "agt-orchestrator",
+    created_at: new Date(Date.now() - 259200000).toISOString(),
+    updated_at: new Date(Date.now() - 86400000).toISOString(),
+  },
+  {
+    id: "iss-4",
+    title: "Add budget enforcement UI",
+    description:
+      "Budget policy editor: set monthly limits, warning thresholds, and view spend history.",
+    status: "todo",
+    priority: "medium",
+    assignee_id: null,
+    assignee_name: null,
+    project_id: "proj-alpha",
+    goal_id: "goal-q1-milestone",
+    labels: ["feature", "enhancement"],
+    comments_count: 0,
+    created_by: "agt-orchestrator",
+    created_at: new Date(Date.now() - 172800000).toISOString(),
+    updated_at: new Date(Date.now() - 172800000).toISOString(),
+  },
+  {
+    id: "iss-5",
+    title: "Review auth flow",
+    description:
+      "Audit authentication issuance, refresh token rotation, and access control configuration for production readiness.",
+    status: "in_review",
+    priority: "high",
+    assignee_id: "agt-reviewer",
+    assignee_name: "Code Reviewer",
+    project_id: "proj-beta",
+    goal_id: "goal-security",
+    labels: ["documentation"],
+    comments_count: 2,
+    created_by: "agt-orchestrator",
+    created_at: new Date(Date.now() - 86400000).toISOString(),
+    updated_at: new Date(Date.now() - 14400000).toISOString(),
+  },
+  {
+    id: "iss-6",
+    title: "Setup monitoring dashboards",
+    description:
+      "Dashboards for agent session throughput, budget burn rate, and system health metrics.",
+    status: "backlog",
+    priority: "low",
+    assignee_id: "agt-devops",
+    assignee_name: "DevOps Agent",
+    project_id: "proj-beta",
+    goal_id: "goal-infra",
+    labels: ["enhancement"],
+    comments_count: 0,
+    created_by: "agt-orchestrator",
+    created_at: new Date(Date.now() - 604800000).toISOString(),
+    updated_at: new Date(Date.now() - 604800000).toISOString(),
+  },
+];
+
+export function mockIssues(): Issue[] {
+  return mockIssueData;
+}
+
+export function getIssueById(id: string): Issue | undefined {
+  return mockIssueData.find((i) => i.id === id);
+}
+
+export function addIssue(issue: Issue): void {
+  mockIssueData = [issue, ...mockIssueData];
+}
+
+export function updateIssue(
+  id: string,
+  data: Partial<Issue>,
+): Issue | undefined {
+  const idx = mockIssueData.findIndex((i) => i.id === id);
+  if (idx === -1) return undefined;
+  mockIssueData[idx] = {
+    ...mockIssueData[idx],
+    ...data,
+    updated_at: new Date().toISOString(),
+  };
+  return mockIssueData[idx];
+}
+
+export function deleteIssue(id: string): boolean {
+  const len = mockIssueData.length;
+  mockIssueData = mockIssueData.filter((i) => i.id !== id);
+  return mockIssueData.length < len;
+}
