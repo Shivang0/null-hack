@@ -1,8 +1,6 @@
 # Canopy Command Center
 
-<p align="center">
-  <img src="static/canopy-screenshot.png" alt="Canopy Command Center — Virtual Office" width="100%">
-</p>
+
 
 Native desktop command center for AI agent teams. Hire agents, watch them work in a virtual office, monitor costs, and manage everything from one app.
 
